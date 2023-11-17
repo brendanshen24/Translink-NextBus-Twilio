@@ -64,8 +64,8 @@ const has_AC = (model) => {
         "Nova Bus LFS HEV": false,
         "Nova Bus LFS Suburban": true,
     };
-    if(model === ''){
-        return '';
+    if(model === undefined){
+        return 'undefined model';
     }
     const split_model = model.split(' ');
     if (parseInt(split_model[0]) >= 2012){
@@ -178,18 +178,16 @@ app.post('/sms', function(req, responseText) {
                         wait_time = '>90 min'
                     }
 
-                    let vehicle = to_list[0].model;
-                    if (vehicle === ''){
-                        vehicle = 'Not yet known.'
-                    }
                     let ACstatus;
-                    const ACbool = has_AC(vehicle);
-                    if (ACbool == true){
-                        ACstatus = 'Yes.'
+                    let vehicle = to_list[0].model;
+                    if (vehicle === undefined){
+                        vehicle = 'Not yet known.'
+                        ACstatus = 'Not yet known.'
                     }
                     else{
-                        if (vehicle === ''){
-                            ACstatus = 'Not yet known.'
+                        const ACbool = has_AC(vehicle);
+                        if (ACbool == true){
+                            ACstatus = 'Yes.'
                         }
                         else{
                             ACstatus = 'No.'
@@ -223,18 +221,16 @@ app.post('/sms', function(req, responseText) {
                         if(wait_time === ''){
                             wait_time = '>90 min'
                         }
-                        let vehicle = to_list[i].model;
-                        if (vehicle === ''){
-                            vehicle = 'Not yet known.'
-                        }
                         let ACstatus;
-                        const ACbool = has_AC(vehicle);
-                        if (ACbool == true){
-                            ACstatus = 'Yes.'
+                        let vehicle = to_list[i].model;
+                        if (vehicle === undefined){
+                            vehicle = 'Not yet known.'
+                            ACstatus = 'Not yet known.'
                         }
                         else{
-                            if (vehicle === ''){
-                                ACstatus = 'Not yet known.'
+                            const ACbool = has_AC(vehicle);
+                            if (ACbool == true){
+                                ACstatus = 'Yes.'
                             }
                             else{
                                 ACstatus = 'No.'
